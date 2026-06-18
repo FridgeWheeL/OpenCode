@@ -194,13 +194,19 @@ For each template:
 3. Replace every `{{PLACEHOLDER}}` with the value from the substitution map.
 4. If `{{CUSTOM_RULES}}` is non-empty, insert it at the `{{CUSTOM_RULES}}`
    marker in AGENTS.md. If empty, remove the marker line.
-5. If `{{GRILL_ME_ENABLED}}` is `true`, replace `{{GRILL_ME_STEP}}` with:
-   ```
-   - Run `/grill-me` to interview the user about the ticket before
-     planning — understand requirements, surface edge cases, and align
-     on approach
-   ```
-   If `false`, remove the `{{GRILL_ME_STEP}}` line entirely.
+5. If `{{GRILL_ME_ENABLED}}` is `true`:
+   - Replace `{{GRILL_ME_STEP}}` with:
+     ```
+     - Run `/grill-me` to interview the user about the ticket before
+       planning — understand requirements, surface edge cases, and align
+       on approach
+     ```
+   - Replace `{{GRILL_ME_PATHS_ENTRY}}` with `, ".agents/skills"` in
+     `opencode.json` so OpenCode also scans the skills installed by
+     `npx skills@latest`.
+   If `false`:
+   - Remove the `{{GRILL_ME_STEP}}` line entirely.
+   - Replace `{{GRILL_ME_PATHS_ENTRY}}` with empty string.
 6. If a conditional file should be skipped (per the conditions table below),
    omit it entirely.
 7. Check if the output path already exists and what the user chose for it:
