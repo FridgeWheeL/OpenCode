@@ -1,9 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["AGENTS.md"],
+  "instructions": [
+    "AGENTS.md"
+  ],
   "default_agent": "build",
   "skills": {
-    "paths": [".opencode/skills"]
+    "paths": [
+      ".opencode/skills"
+    ]
   },
   "agent": {
     "planner": {
@@ -62,6 +66,7 @@
     },
     "self-improve": {
       "description": "Run full introspection on the setup skill. Audits templates, placeholders, paths, and structure. Auto-fixes mechanical issues, creates improvement tickets for structural ones.",
+      "template": "Run a full introspection pass on the setup skill in .opencode/skills. Audit templates, placeholders, paths, and directory structure for inconsistencies. Auto-fix any purely mechanical issues (typos, broken paths, stale references). For anything structural or requiring a design decision, create an improvement ticket under docs/Tasks/ instead of editing directly. Report a summary of fixes applied and tickets created.",
       "agent": "self-improver"
     }
   }

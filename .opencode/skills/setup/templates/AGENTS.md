@@ -123,3 +123,7 @@ Rules:
 - The commit must be local-only until push is confirmed.
 - If `git status` shows no changes, inform the user rather than attempting
   a commit.
+
+## 11. Custom Conventions
+
+{{CUSTOM_RULES}}
