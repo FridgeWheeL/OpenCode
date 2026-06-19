@@ -9,7 +9,7 @@ description: Use when working on a ticket or feature branch. Covers creating req
 
 1. Create a branch:
    ```
-   git checkout -b feat/TICKETN
+    git checkout -b feature/TICKETN
    ```
 
 2. Create the ticket directory:
