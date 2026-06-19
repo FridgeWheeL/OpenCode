@@ -106,13 +106,12 @@ Scan for available LLM models to present as options during setup:
      every configured provider.
    - Any per-agent `model` overrides (these indicate models the user
      already has access to).
-2. Check environment variables for provider API keys:
-   - `ANTHROPIC_API_KEY` → Anthropic models available
-   - `OPENAI_API_KEY` → OpenAI models available  
-   - `GOOGLE_API_KEY` or `GEMINI_API_KEY` → Google models available
-   - `GROQ_API_KEY` → Groq models available
-   - Any other `*_API_KEY` or `*_API_KEY` env vars with non-empty values
-3. Build `AVAILABLE_MODELS` — a deduplicated list of all discovered
+
+   If no `opencode.json` is found at the project root, ask the user to
+   provide the path to their existing OpenCode config. Models are only
+   discovered through the config file — env vars are not scanned.
+
+2. Build `AVAILABLE_MODELS` — a deduplicated list of all discovered
    model IDs, plus well-known models for each detected provider.
    Format each as `provider/model` (e.g., `anthropic/claude-sonnet-4-20250514`).
 
@@ -177,7 +176,7 @@ about what wasn't detected or needs confirmation.
 ### LLM model assignment
 
 These questions let you assign different models to different sub-agents.
-Discovered models (from existing config, env vars, and well-known lists)
+Discovered models (from existing config and well-known lists)
 are presented as options. Type `default` to inherit the caller's model.
 
 12. **Select a model for each sub-agent.** For each one, enter the full
