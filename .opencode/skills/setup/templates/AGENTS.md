@@ -22,8 +22,8 @@ This is a **{{SOLUTION_NAME}}** project ({{SOLUTION_TYPE}}). See
 ## 4. Git Workflow
 
 Apply the **git-conventions** skill for full details. Key rules:
-- Branch: `feat/TICKETN`, `fix/TICKETN`, `chore/TICKETN`
-- Commits: conventional commits (`feat:`, `fix:`, `test:`, `chore:`,
+- Branch: `feature/TICKETN`, `bugfix/TICKETN`
+- Commits: conventional commits (`feature:`, `bugfix:`, `test:`,
   `refactor:`). Imperative mood, 50-char subject, body wraps at 72.
 - Commit early, commit often — each commit should compile and pass tests.
 
@@ -34,7 +34,7 @@ Apply the **git-conventions** skill for full details. Key rules:
 
 Apply the **ticket-workflow** skill for full details. Standard flow:
 
-1. Create branch: `git checkout -b feat/TICKETN`
+1. Create branch: `git checkout -b feature/TICKETN`
 2. Ticket documents live at `docs/Tasks/TICKETN-Short-Description/`
    with:
    - `requirement.md` — what needs to be done
