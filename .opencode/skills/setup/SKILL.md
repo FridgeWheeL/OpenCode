@@ -247,19 +247,15 @@ CI_PLATFORM=GitHub Actions
 FORMATTER_CMD=dotnet format
 CUSTOM_RULES=
 GRILL_ME_ENABLED=false
-INDENT_STYLE=space
-INDENT_SIZE=4
 ```
 
 ### .NET-specific (set only when SOLUTION_TYPE contains dotnet)
 
 ```
-ROOT_NAMESPACE=MyCompany.MyProject
 DOTNET_VERSION=net8.0
 TEST_FRAMEWORK=MSTest
 TEST_SKILL=dotnet-testing
 TEST_CLASS_ATTR=[TestClass]
-TEST_CLASS_ATTR_XML=TestClass
 TEST_METHOD_ATTR=[TestMethod]
 TEST_DATA_ROW=[DataRow]
 MOCK_LIBRARY=NSubstitute
@@ -268,25 +264,6 @@ MOCK_CREATE=Substitute.For<T>()
 MOCK_RECEIVE=Received()
 ORMLIB=Entity Framework Core
 ARCH_PATTERN=Clean Architecture
-NULLABLE_ENABLED=true
-FILE_SCOPED_NS=true
-WEB_FRAMEWORK=ASP.NET Core
-```
-
-### Terraform-specific (set when SOLUTION_TYPE contains terraform)
-
-```
-TF_VERSION=1.5
-TF_BACKEND=s3
-TF_PROVIDER=aws
-```
-
-### Node-specific (set when SOLUTION_TYPE contains node)
-
-```
-NODE_VERSION=20
-NODE_PKG_MGR=npm
-NODE_TEST_FRAMEWORK=vitest
 ```
 
 ### Project roles (dynamic, one entry per project)
