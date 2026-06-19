@@ -108,8 +108,7 @@ Scan for available LLM models to present as options during setup:
      already has access to).
 
    If no `opencode.json` is found at the project root, ask the user to
-   provide the path to their existing OpenCode config. Models are only
-   discovered through the config file — env vars are not scanned.
+   provide the path to their existing OpenCode config.
 
 2. Build `AVAILABLE_MODELS` — a deduplicated list of all discovered
    model IDs, plus well-known models for each detected provider.
