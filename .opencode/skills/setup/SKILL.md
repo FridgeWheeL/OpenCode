@@ -363,7 +363,7 @@ PROJECT_ROLES_TABLE=
 |----------|---------------|----------------|------------------|
 | NSubstitute | `using NSubstitute;` | `Substitute.For<T>()` | `.Received()` |
 | Moq | `using Moq;` | `new Mock<T>().Object` | `.Verify()` |
-| FakeItEasy | `using FakeItEasy;` | `A.Fake<T>()` | `A.CallTo()" |
+| FakeItEasy | `using FakeItEasy;` | `A.Fake<T>()` | `A.CallTo()` |
 
 ## Phase 4: Build section flags
 
@@ -492,7 +492,8 @@ For each template:
 2. Read the template file content.
 3. Replace every `{{PLACEHOLDER}}` with the value from the substitution map.
 4. If `{{CUSTOM_RULES}}` is non-empty, insert at the `{{CUSTOM_RULES}}`
-   marker. If empty, remove the marker line.
+   marker. If empty, remove the marker line and its preceding heading line
+   and trailing blank line so no orphaned heading remains.
 5. Replace `{{SECTION_CODING_STANDARDS}}`, `{{SECTION_TESTING}}`,
    `{{SECTION_ARCHITECTURE}}`, `{{STACK_ENTRIES}}`,
    `{{ARCHITECTURE_DIAGRAM}}`, `{{DEPENDENCY_RULES}}`,
