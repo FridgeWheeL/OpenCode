@@ -9,15 +9,15 @@ description: Use when branching, committing, or reviewing PRs. Covers branch nam
 
 | Pattern | When |
 |---------|------|
-| `feat/TICKET-N` | New feature or enhancement |
-| `fix/TICKET-N` | Bug fix |
-| `chore/TICKET-N` | Maintenance, tooling, config, CI |
-| `refactor/TICKET-N` | Code restructuring, no behavior change |
-| `docs/TICKET-N` | Documentation only |
-| `test/TICKET-N` | Adding or fixing tests |
+| `feat/TICKETN` | New feature or enhancement |
+| `fix/TICKETN` | Bug fix |
+| `chore/TICKETN` | Maintenance, tooling, config, CI |
+| `refactor/TICKETN` | Code restructuring, no behavior change |
+| `docs/TICKETN` | Documentation only |
+| `test/TICKETN` | Adding or fixing tests |
 
 Always reference a ticket number when one exists.
-Ticket artifacts live under `docs/TICKET-N/` (requirement, plan, status).
+Ticket artifacts live under `docs/Tasks/TICKETN-Short-Description/`.
 
 ## Commit messages
 

@@ -46,7 +46,7 @@ pattern, test category, test dependency), flag it with full detail:
 
 ```
 Documentation updates needed:
-  - Test infra change: <description> -> docs/stack.md: update Testing table
+  - Test infra change: <description> -> docs/Architecture/stack.md: update Testing table
   - New pattern: <description> -> {{TEST_SKILL}} skill: add section
 Content: <specific text or snippet for each update>
 ```
