@@ -321,6 +321,7 @@ SECTION_CODING_STANDARDS=
 SECTION_TESTING=
 SECTION_ARCHITECTURE=
 STACK_ENTRIES=
+DOTNET_VERSION_ROW=
 ARCHITECTURE_DIAGRAM=
 DEPENDENCY_RULES=
 PROJECT_ROLES_TABLE=
@@ -386,6 +387,8 @@ Build `{{STACK_ENTRIES}}` based on detected technologies:
 
 - For .NET: add Runtime, Presentation, Application, Infrastructure,
   and Testing table sections with detected packages.
+  Set `DOTNET_VERSION_ROW` to the `DOTNET_VERSION` value (e.g. `net8.0`).
+- For other platforms, leave `DOTNET_VERSION_ROW` as empty string.
 - For other platforms: add relevant table sections per detected tech.
 - If no specific tech detected, leave it as the generic "Project" entry
   that's already in the template.

@@ -8,6 +8,7 @@ Maintained by `@solutions-architect`. Update whenever the stack changes.
 |-----------|------------|---------|-------|
 | Project | {{SOLUTION_NAME}} | | |
 | Type | {{SOLUTION_TYPE}} | | |
+| .NET Runtime | .NET | {{DOTNET_VERSION_ROW}} | |
 
 {{STACK_ENTRIES}}
 ## DevOps
