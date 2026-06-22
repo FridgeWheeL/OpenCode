@@ -15,7 +15,7 @@
         "bash": "ask"
       }
     },
-    "solutions-architect": {
+    "architect": {
       "description": "Designs overall solution structure, chooses technologies, defines high-level architecture, maintains architecture docs.",
       "mode": "subagent",
       {{MODEL_ARCHITECT_LINE}}
@@ -24,12 +24,12 @@
         "bash": "ask"
       }
     },
-    "coding-agent": {
+    "developer": {
       "description": "Implements production code following AGENTS.md standards and the plan.",
       {{MODEL_CODING_LINE}}
       "mode": "subagent"
     },
-    "test-specialist": {
+    "tester": {
       "description": "Writes and maintains {{TEST_FRAMEWORK}} unit tests using the {{TEST_SKILL}} skill.",
       {{MODEL_TEST_LINE}}
       "mode": "subagent"
@@ -43,7 +43,7 @@
         "bash": "ask"
       }
     },
-    "cleanup-agent": {
+    "cleanup": {
       "description": "Final cleanup pass: add minimal instructive comments, remove AI conversational artifacts, organize imports, fix whitespace.",
       "mode": "subagent",
       {{MODEL_CLEANUP_LINE}}
@@ -55,7 +55,7 @@
   "command": {
     "ticket": {
       "description": "Start work on a ticket, e.g. /ticket TICKET1",
-      "template": "Read docs/Tasks/{arg}-*/requirement.md and docs/Tasks/{arg}-*/status.md (if exists). Follow the workflow in AGENTS.md. Use sub-agents: @planner -> @coding-agent -> @test-specialist -> @reviewer -> @solutions-architect -> @cleanup-agent. Present the plan to the user after @planner, show changes after @coding-agent, show test results after @test-specialist, and ask about commit at the end. Collect doc flags from each agent and pass them to @solutions-architect. After completing, update status.md with progress.",
+      "template": "Read docs/Tasks/{arg}-*/requirement.md and docs/Tasks/{arg}-*/status.md (if exists). Follow the workflow in AGENTS.md. Use sub-agents: @planner -> @architect -> @developer -> @reviewer -> @developer (if issues found) -> @tester -> @developer (if tests fail) -> @cleanup. Present the plan to the user after @planner, show architecture after @architect, show changes after @developer, show review results after @reviewer, show test results after @tester, and ask about commit at the end. After completing, update status.md with progress.",
       "agent": "build"
     }
   }

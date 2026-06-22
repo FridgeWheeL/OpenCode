@@ -87,7 +87,7 @@ For Terraform projects, scan `*.tf` for provider references.
 If `.opencode/` or `AGENTS.md` or `opencode.json` already exist, scan
 them thoroughly for consolidation:
 
-- Glob `.opencode/agent/*.md` → read each file's frontmatter and body
+- Glob `.opencode/agents/*.md` → read each file's frontmatter and body
 - Read existing `AGENTS.md` fully
 - Read existing `opencode.json`
 - Read existing `.opencode/skills/*/SKILL.md` files
@@ -187,11 +187,10 @@ are presented as options. Type `default` to inherit the caller's model.
     | Agent | Role | Recommended | Your model |
     |-------|------|-------------|------------|
     | planner | Designs implementation plans | High reasoning model | `{{MODEL_PLANNER}}` |
-    | coding-agent | Writes production code | Medium reasoning model | `{{MODEL_CODING}}` |
-    | test-specialist | Writes tests | Medium reasoning model | `{{MODEL_TEST}}` |
-    | reviewer | Reviews code, read-only | Medium-high reasoning model | `{{MODEL_REVIEWER}}` |
-    | cleanup-agent | Whitespace, polish, comments | Low/no reasoning, fast/cheap | `{{MODEL_CLEANUP}}` |
-    | solutions-architect | Architecture decisions | High reasoning model | `{{MODEL_ARCHITECT}}` |
+    | developer | Writes production code | Medium reasoning model | `{{MODEL_CODING}}` |
+    | tester | Writes tests | Medium reasoning model | `{{MODEL_TEST}}` |
+    | cleanup | Whitespace, polish, comments | Low/no reasoning, fast/cheap | `{{MODEL_CLEANUP}}` |
+    | architect | Architecture decisions | High reasoning model | `{{MODEL_ARCHITECT}}` |
 
     Enter `default` for any agent that should inherit the default model.
     Enter a custom `provider/model` value (e.g., `anthropic/claude-sonnet-4-20250514`)
@@ -438,16 +437,15 @@ Different sub-agents benefit from different model capabilities:
 | Agent type | Reasoning level | Why | Example models |
 |------------|----------------|-----|----------------|
 | **planner** | High | Needs to reason about architecture trade-offs, sequence dependencies, and edge cases | `claude-sonnet-4-20250514`, `claude-opus-4-20250514`, `gpt-4.1`, `gemini-2.5-pro` |
-| **solutions-architect** | High | Makes irreversible structural decisions; needs deep system-level reasoning | `claude-opus-4-20250514`, `gpt-4.1`, `gemini-2.5-pro` |
-| **coding-agent** | Medium | Follows detailed specs; needs good code generation but less strategic reasoning | `claude-sonnet-4-20250514`, `gpt-4.1-mini`, `gemini-2.5-flash` |
-| **test-specialist** | Medium | Generates test cases; needs to understand code paths but follows established patterns | `claude-sonnet-4-20250514`, `gpt-4.1-mini`, `gemini-2.5-flash` |
-| **reviewer** | Medium-high | Spots bugs, anti-patterns, and doc drift; needs a sharp eye but limited scope | `claude-sonnet-4-20250514`, `gpt-4.1`, `gemini-2.5-flash` |
-| **cleanup-agent** | Low / none | Mechanical tasks: whitespace, imports, comment removal. Reasoning overhead is wasted | `claude-haiku-3-5-20241022`, `gpt-4.1-nano`, `gemini-2.5-flash` |
+| **architect** | High | Makes irreversible structural decisions; needs deep system-level reasoning | `claude-opus-4-20250514`, `gpt-4.1`, `gemini-2.5-pro` |
+| **developer** | Medium | Follows detailed specs; needs good code generation but less strategic reasoning | `claude-sonnet-4-20250514`, `gpt-4.1-mini`, `gemini-2.5-flash` |
+| **tester** | Medium | Generates test cases; needs to understand code paths but follows established patterns | `claude-sonnet-4-20250514`, `gpt-4.1-mini`, `gemini-2.5-flash` |
+| **cleanup** | Low / none | Mechanical tasks: whitespace, imports, comment removal. Reasoning overhead is wasted | `claude-haiku-3-5-20241022`, `gpt-4.1-nano`, `gemini-2.5-flash` |
 
 Key principle: **Don't use a reasoning-heavy model for mechanical tasks**.
-The cleanup-agent, for example, does trivial pattern matching — a fast,
+The cleanup agent, for example, does trivial pattern matching — a fast,
 cheap model with no reasoning is optimal. Conversely, the planner and
-solutions-architect benefit from models with strong reasoning because
+architect benefit from models with strong reasoning because
 their output shapes the entire implementation.
 
 When choosing models:
@@ -494,13 +492,13 @@ For each template:
 
 | Template | Condition to write |
 |----------|-------------------|
-| `test-specialist.md` | `HAS_UNIT_TESTS` = true |
+| `tester.md` | `HAS_UNIT_TESTS` = true |
 | `dotnet-testing/SKILL.md` | `HAS_UNIT_TESTS` = true and solution uses .NET |
-| `solutions-architect.md` | `HAS_ARCHITECTURE` = true |
+| `architect.md` | `HAS_ARCHITECTURE` = true |
 | `architecture/SKILL.md` | `HAS_ARCHITECTURE` = true |
 | `docs/Architecture/architecture.md` | `HAS_ARCHITECTURE` = true |
 | `docs/Architecture/stack.md` | Always |
-| `coding-agent.md` | `HAS_CODE_STANDARDS` = true (or has code to write) |
+| `developer.md` | `HAS_CODE_STANDARDS` = true (or has code to write) |
 
 ### Template file map
 
@@ -508,12 +506,12 @@ For each template:
 |-------------|------------------------------------------|
 | `./AGENTS.md` | `AGENTS.md` |
 | `./opencode.json` | `opencode.json` |
-| `./.opencode/agent/planner.md` | `agent/planner.md` |
-| `./.opencode/agent/coding-agent.md` | `agent/coding-agent.md` |
-| `./.opencode/agent/test-specialist.md` | `agent/test-specialist.md` |
-| `./.opencode/agent/reviewer.md` | `agent/reviewer.md` |
-| `./.opencode/agent/cleanup-agent.md` | `agent/cleanup-agent.md` |
-| `./.opencode/agent/solutions-architect.md` | `agent/solutions-architect.md` |
+| `./.opencode/agents/planner.md` | `agent/planner.md` |
+| `./.opencode/agents/developer.md` | `agent/developer.md` |
+| `./.opencode/agents/tester.md` | `agent/tester.md` |
+| `./.opencode/agents/reviewer.md` | `agent/reviewer.md` |
+| `./.opencode/agents/cleanup.md` | `agent/cleanup.md` |
+| `./.opencode/agents/architect.md` | `agent/architect.md` |
 | `./.opencode/skills/ticket-workflow/SKILL.md` | `skills/ticket-workflow/SKILL.md` |
 | `./.opencode/skills/git-conventions/SKILL.md` | `skills/git-conventions/SKILL.md` |
 | `./.opencode/skills/{{TEST_SKILL}}/SKILL.md` | `skills/dotnet-testing/SKILL.md` |
@@ -527,13 +525,13 @@ For each template:
 AGENTS.md
 opencode.json
 .opencode/
-  agent/
+  agents/
     planner.md
-    coding-agent.md              (if HAS_CODE_STANDARDS)
-    test-specialist.md           (if HAS_UNIT_TESTS)
+    developer.md                 (if HAS_CODE_STANDARDS)
+    tester.md                    (if HAS_UNIT_TESTS)
     reviewer.md
-    cleanup-agent.md
-    solutions-architect.md       (if HAS_ARCHITECTURE)
+    cleanup.md
+    architect.md                 (if HAS_ARCHITECTURE)
   skills/
     ticket-workflow/SKILL.md
     git-conventions/SKILL.md

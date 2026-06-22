@@ -10,7 +10,7 @@ The OpenCode CLI is an independent project. This repo configures it for a specif
 
 ## Features
 
-- **Custom sub-agents** — Specialized AI roles (planner, coding-agent, reviewer, etc.) that collaborate within a defined workflow, each with restricted permissions and specific responsibilities.
+- **Custom sub-agents** — Specialized AI roles (planner, architect, developer, reviewer, tester, cleanup, etc.) that collaborate within a defined workflow, each with restricted permissions and specific responsibilities.
 - **Skills system** — Reusable instruction sets stored under `.opencode/skills/` that are auto-loaded when trigger keywords appear in conversation.
 - **Setup skill** — The flagship component. Scans a codebase, detects project type (.NET, Terraform, Node.js, Python, Rust, Go, Java, mono-repos), asks targeted questions, and generates a tailored `opencode.json` and `AGENTS.md` with stack-specific conventions.
 - **Ticket-driven workflow** — Each change follows a structured path: requirement → plan → implementation → tests → review → cleanup, with mandatory user approval at every stage.
@@ -24,12 +24,12 @@ Sub-agents use **skills** — reusable markdown files registered under `.opencod
 
 The **ticket workflow** (`/ticket TICKETN`) drives the full lifecycle of a change:
 
-1. A `@planner` produces a design (`plan.md`)
-2. `@coding-agent` implements the code
-3. `@test-specialist` adds tests
+1. `@planner` produces a design (`plan.md`)
+2. `@architect` designs the technical approach
+3. `@developer` implements the code
 4. `@reviewer` inspects for standards compliance
-5. `@solutions-architect` resolves documentation flags
-6. `@cleanup-agent` polishes code
+5. `@tester` adds tests
+6. `@cleanup` polishes code
 
 Each step pauses for user approval. See `docs/Architecture/stack.md` for the technology stack documentation.
 
@@ -78,10 +78,10 @@ See the [ticket-workflow skill](.opencode/skills/ticket-workflow/SKILL.md) for f
 AGENTS.md                     Project-level instructions loaded by OpenCode
 opencode.json                 Agent, command, and skill configuration
 .opencode/
-  agent/                      Sub-agent definitions (frontmatter + instructions)
+  agents/                     Sub-agent definitions (frontmatter + instructions)
     planner.md
-    coding-agent.md
-    cleanup-agent.md
+    developer.md
+    cleanup.md
     reviewer.md
   skills/
     setup/                    Setup skill — bootstraps OpenCode for any project
@@ -117,12 +117,12 @@ docs/
 
 | Agent | Role | Permissions |
 |-------|------|-------------|
-| **@planner** | Produces per-ticket implementation plans. Read-only. Never makes architecture decisions. | edit: deny, bash: ask |
-| **@coding-agent** | Writes production code following AGENTS.md standards and the plan. | (full) |
-| **@test-specialist** | Writes and maintains tests using the detected testing skill. | (full) |
-| **@reviewer** | Read-only code review. Checks standards, patterns, tests, and architecture compliance. | edit: deny, bash: ask |
-| **@cleanup-agent** | Final polish: adds minimal comments, removes AI artifacts, organizes imports, fixes whitespace. | bash: ask |
-| **@solutions-architect** | Designs solution structure, chooses technologies, defines architecture, maintains architecture docs. | edit: allow, bash: ask |
+| **@planner** | Breaks down requirements into tasks, scope, milestones, and success criteria. Read-only. Never makes architecture decisions. | edit: deny, bash: ask |
+| **@architect** | Designs solution structure, chooses technologies, defines architecture, maintains architecture docs. | edit: allow, bash: ask |
+| **@developer** | Writes production code based on the architecture and plan. | (full) |
+| **@reviewer** | Reviews code against requirements and architecture spec. Read-only. | edit: deny, bash: ask |
+| **@tester** | Writes and runs unit/integration/edge-case tests. | (full) |
+| **@cleanup** | Final polish: refactors readability, removes dead code, normalizes formatting, updates docs. | bash: ask |
 | **@self-improver** | Introspects the setup skill, detects inconsistencies, generates improvement tickets. Invoked via `/self-improve`. | edit: deny, bash: ask |
 
 ## Contributing
@@ -132,7 +132,7 @@ Contributions follow the ticket workflow defined in this repository.
 1. Open an issue or pick an existing one.
 2. Create a branch: `feature/TICKETN` or `bugfix/TICKETN`.
 3. Create a ticket directory at `docs/Tasks/TICKETN-Short-Description/` with `requirement.md`.
-4. Work through the agent workflow: planner → coding-agent → test-specialist → reviewer → solutions-architect → cleanup-agent.
+4. Work through the agent workflow: planner → architect → developer → reviewer → tester → cleanup.
 5. Commit using conventional commit format (`TICKETN: description`).
 
 See [git-conventions](.opencode/skills/git-conventions/SKILL.md) and [ticket-workflow](.opencode/skills/ticket-workflow/SKILL.md) for detailed guidance.

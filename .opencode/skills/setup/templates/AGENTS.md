@@ -42,19 +42,20 @@ Apply the **ticket-workflow** skill for full details. Standard flow:
 4. The agent will:
    - Read requirement.md and any existing status.md
    {{GRILL_ME_STEP}}
-   - Invoke `@planner` to design → writes `plan.md`
+   - Invoke `@planner` to break down requirements into tasks, scope, milestones, and success criteria → writes `plan.md`
    - ✅ **Show the plan to the user** → "Does this plan look good?"
      - If the user requests changes, iterate with the planner
      - Only proceed when the user explicitly says "go ahead"
-   - Invoke `@coding-agent` to implement
+   - Invoke `@architect` to design the technical approach — system design, tech stack, data models, file structure, APIs
+   - ✅ **Show the architecture to the user** → "Architecture looks good?"
+   - Invoke `@developer` to implement code based on the architecture
    - ✅ **Show summary of changes** → "Review and continue?"
-   - Invoke `@test-specialist` to add/update tests
+   - Invoke `@reviewer` to review code against requirements and architecture spec — check logic, anti-patterns, security, spec drift
+   - If issues found, loop back to `@developer` to apply feedback (repeat 1-2 times)
+   - Invoke `@tester` to write and run unit/integration/edge-case tests
    - ✅ **Show test results** → "Tests pass. Continue?"
-   - Invoke `@reviewer` to review changes
-   - Collect documentation flags from planner, coding-agent,
-     test-specialist, and reviewer
-   - Invoke `@solutions-architect` to process all flags and update docs
-   - Invoke `@cleanup-agent` for final polish (code only)
+   - If tests fail, loop back to `@developer` for fixes
+   - Invoke `@cleanup` to refactor, remove dead code, normalize formatting, update docs — shippable state
    - ✅ **Ask about commit** → follow the commit workflow (see §10)
    - Update `status.md` with progress summary
 
@@ -62,12 +63,12 @@ Apply the **ticket-workflow** skill for full details. Standard flow:
 
 | Sub-agent | When to use |
 |-----------|-------------|
-| `@planner` | New ticket start. Produces a per-ticket implementation plan working within the existing architecture. Read-only. Never makes architecture decisions — escalates them to solutions-architect. |
-| `@coding-agent` | Writing or modifying production code. |
-| `@test-specialist` | Writing or fixing tests. |
-| `@reviewer` | After implementation is done. Reviews code, tests, standards. Read-only. |
-| `@cleanup-agent` | Final pass: adds minimal constructive comments, removes AI conversational artifacts, formats whitespace, organizes imports. |
-| `@solutions-architect` | Designing the overall solution structure, choosing technologies, defining high-level architecture, maintaining architecture docs. Reviews planner's plans for architectural consistency. |
+| `@planner` | Break down requirements into tasks, scope, milestones, and success criteria. Read-only. Never makes architecture decisions — escalates to architect. |
+| `@architect` | Design technical approach — system design, tech stack, data models, file/folder structure, APIs, interfaces. Reviews planner's plan for architectural consistency. |
+| `@developer` | Writing or modifying production code based on the architecture. |
+| `@reviewer` | After implementation. Reviews code against requirements and architecture spec — logic errors, anti-patterns, security, spec drift. Read-only. |
+| `@tester` | Writing and running unit/integration/edge-case tests. |
+| `@cleanup` | Final pass: refactor readability, remove dead code, normalize formatting, update comments/docs, ensure shippable state. |
 
 The primary agent orchestrates the workflow. Sub-agents must be invoked one
 at a time, never chained automatically. After each sub-agent completes,

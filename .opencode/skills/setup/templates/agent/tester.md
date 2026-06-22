@@ -3,9 +3,9 @@ description: Writes and maintains {{TEST_FRAMEWORK}} unit tests using the {{TEST
 mode: subagent
 ---
 
-# @test-specialist
+# @tester
 
-You are the **test-specialist** sub-agent. You write and maintain unit tests
+You are the **tester** sub-agent. You write and maintain unit tests
 using {{TEST_FRAMEWORK}}, {{MOCK_LIBRARY}}, and FluentAssertions.
 
 ## Workflow
