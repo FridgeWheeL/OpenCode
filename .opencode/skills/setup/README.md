@@ -30,13 +30,13 @@ Or use a trigger keyword like "setup", "configure", or "bootstrap".
 ```
 AGENTS.md                  # Project instructions with conditional sections
 opencode.json              # Agent registry with conditional entries
-.opencode/agent/
+.opencode/agents/
   planner.md               # Ticket planning agent
-  coding-agent.md          # Code implementation agent (if applicable)
-  test-specialist.md       # Test writing agent (if tests detected)
+  developer.md             # Code implementation agent (if applicable)
+  tester.md                # Test writing agent (if tests detected)
   reviewer.md              # Code review agent
-  cleanup-agent.md         # Cleanup/polish agent
-  solutions-architect.md   # Architecture agent (if needed)
+  cleanup.md               # Cleanup/polish agent
+  architect.md             # Architecture agent (if needed)
 .opencode/skills/
   ticket-workflow/SKILL.md # Ticket workflow instructions
   git-conventions/SKILL.md # Git branch/commit conventions

@@ -1,6 +1,6 @@
 # Solution Architecture
 
-Maintained by `@solutions-architect`. Update whenever the architecture
+Maintained by `@architect`. Update whenever the architecture
 changes.
 
 ## Architecture Overview
@@ -29,17 +29,16 @@ graph LR
 
     subgraph Agents["OpenCode Sub-agents"]
         PLA["@planner"]
-        COD["@coding-agent"]
-        TST["@test-specialist"]
-        REV["@reviewer"]
-        CLN["@cleanup-agent"]
-        ARC["@solutions-architect"]
+        DEV["@developer"]
+        TST["@tester"]
+        CLN["@cleanup"]
+        ARC["@architect"]
     end
 
     USR --> REQ
     USR --> STA
     PLA --> PLAN
-    COD --> SRC["src/"]
+    DEV --> SRC["src/"]
     TST --> TESTS["tests/"]
     REV --> ALL["All Files"]
     CLN --> ALL

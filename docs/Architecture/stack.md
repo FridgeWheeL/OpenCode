@@ -1,6 +1,6 @@
 # Technology Stack
 
-Maintained by `@solutions-architect`. Update whenever the stack changes.
+Maintained by `@architect`. Update whenever the stack changes.
 
 ## Project
 
